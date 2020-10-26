@@ -151,6 +151,10 @@ def test_struct_field_of_struct(msg):
     b = keyboard.b
     assert b is not None
     assert b.keyId == 'b'
+    b.keyId = 'z'
+    assert b.keyId == 'z'
+    print("keyboard.b.keyId = {}".format(keyboard.b.keyId))
+    assert keyboard.b.keyId == 'z'
     # questions: big picture, big goals of the org/team?
     # extracted python attribute is by reference or by value?
     keyboard.otherKeys = [keyC]
