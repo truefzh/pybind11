@@ -149,6 +149,7 @@ def test_struct_field_of_struct(msg):
     assert b.keyId == 'b'
     # test the operator overloading for `<`
     assert a < b
+    assert not (a == b)
 
     b.keyId = 'z'
     assert b.keyId == 'z'
