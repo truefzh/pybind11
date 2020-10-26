@@ -137,10 +137,6 @@ def test_qualname(doc):
 
 # fzh: test a struct has a field which is another field
 def test_struct_field_of_struct(msg):
-    keyC = m.KeyInKeyboard()
-    assert keyC.keyId == ' '
-    keyC.keyId = 'c'
-    assert keyC.keyId == 'c'
     keyboard = m.Keyboard()
     assert keyboard.a.keyId == 'a'
     assert keyboard.b.keyId == 'b'
@@ -159,15 +155,21 @@ def test_struct_field_of_struct(msg):
     a.keyId = 'z'
     assert a.keyId == 'z'
     assert keyboard.a.keyId == 'z'
+    # the assertions below means 'k' is not a reference to a.keyId
     k = a.keyId
     k = 'x'
     assert k == 'x'
-    assert a.keyId == 'x'
-    assert keyboard.a.keyId == 'x'
+    assert a.keyId != k
+    assert keyboard.a.keyId != k
     # questions: big picture, big goals of the org/team?
     # extracted python attribute is by reference or by value?
+    keyC = m.KeyInKeyboard()
+    assert keyC.keyId == ' '
+    keyC.keyId = 'c'
+    assert keyC.keyId == 'c'
     keyboard.otherKeys = [keyC]
     assert keyboard.otherKeys[0].keyId == 'c'
+
 
 
 def test_inheritance(msg):

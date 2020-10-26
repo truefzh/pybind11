@@ -46,7 +46,7 @@ TEST_SUBMODULE(class_, m) {
     struct KeyInKeyboard {
       char keyId;
       KeyInKeyboard() : keyId(' ') {}
-      KeyInKeyboard(char c) : keyId(c) {}
+      explicit KeyInKeyboard(char c) : keyId(c) {}
     };
     struct Keyboard {
       KeyInKeyboard a;
