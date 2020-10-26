@@ -154,7 +154,16 @@ def test_struct_field_of_struct(msg):
     b.keyId = 'z'
     assert b.keyId == 'z'
     print("keyboard.b.keyId = {}".format(keyboard.b.keyId))
+    # this means that b is a reference to `keyboard.b`
     assert keyboard.b.keyId == 'z'
+    a.keyId = 'z'
+    assert a.keyId == 'z'
+    assert keyboard.a.keyId == 'z'
+    k = a.keyId
+    k = 'x'
+    assert k == 'x'
+    assert a.keyId == 'x'
+    assert keyboard.a.keyId == 'x'
     # questions: big picture, big goals of the org/team?
     # extracted python attribute is by reference or by value?
     keyboard.otherKeys = [keyC]
