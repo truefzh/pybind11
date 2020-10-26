@@ -175,7 +175,6 @@ def test_struct_field_of_struct(msg):
     assert keyboard.otherKeys[0].keyId == 'c'
 
 
-
 def test_inheritance(msg):
     roger = m.Rabbit("Rabbit")
     assert roger.name() + " is a " + roger.species() == "Rabbit is a parrot"
