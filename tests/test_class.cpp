@@ -47,6 +47,24 @@ TEST_SUBMODULE(class_, m) {
       char keyId;
       KeyInKeyboard() : keyId(' ') {}
       explicit KeyInKeyboard(char c) : keyId(c) {}
+      bool operator< (const KeyInKeyboard& other) const {
+        return this->keyId < other.keyId;
+      }
+      bool operator<=(const KeyInKeyboard &other) const {
+        return this->keyId <= other.keyId;
+      }
+      bool operator==(const KeyInKeyboard &other) const {
+        return this->keyId == other.keyId;
+      }
+      bool operator>(const KeyInKeyboard &other) const {
+        return this->keyId > other.keyId;
+      }
+      bool operator>=(const KeyInKeyboard &other) const {
+        return this->keyId >= other.keyId;
+      }
+      bool operator!=(const KeyInKeyboard &other) const {
+        return this->keyId != other.keyId;
+      }
     };
     struct Keyboard {
       KeyInKeyboard a;
@@ -58,9 +76,11 @@ TEST_SUBMODULE(class_, m) {
         .def(py::init())
         .def(py::init<char>())
         .def_readwrite("keyId", &KeyInKeyboard::keyId)
-        .def("__lt__", [](const KeyInKeyboard& x, const KeyInKeyboard&y) {
-          return x.keyId < y.keyId;
-        });
+        // .def("__lt__", [](const KeyInKeyboard &x,
+        //                   const KeyInKeyboard &y) { return x.keyId < y.keyId;
+        //                   })
+        .def("__lt__", &KeyInKeyboard::operator<)
+        .def("__eq__", &KeyInKeyboard::operator==);
     py::class_<Keyboard>(m, "Keyboard")
         .def(py::init())
         .def_readwrite("a", &Keyboard::a)
