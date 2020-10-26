@@ -57,7 +57,10 @@ TEST_SUBMODULE(class_, m) {
     py::class_<KeyInKeyboard>(m, "KeyInKeyboard")
         .def(py::init())
         .def(py::init<char>())
-        .def_readwrite("keyId", &KeyInKeyboard::keyId);
+        .def_readwrite("keyId", &KeyInKeyboard::keyId)
+        .def("__lt__", [](const KeyInKeyboard& x, const KeyInKeyboard&y) {
+          return x.keyId < y.keyId;
+        });
     py::class_<Keyboard>(m, "Keyboard")
         .def(py::init())
         .def_readwrite("a", &Keyboard::a)

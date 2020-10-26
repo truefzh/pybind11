@@ -147,6 +147,9 @@ def test_struct_field_of_struct(msg):
     b = keyboard.b
     assert b is not None
     assert b.keyId == 'b'
+    # test the operator overloading for `<`
+    assert a < b
+
     b.keyId = 'z'
     assert b.keyId == 'z'
     print("keyboard.b.keyId = {}".format(keyboard.b.keyId))
