@@ -135,6 +135,19 @@ def test_qualname(doc):
     assert m.NestBase.Nested.__module__ == "pybind11_tests.class_"
 
 
+# fzh: test a struct has a field which is another field
+def test_struct_field_of_struct(msg):
+    keyC = m.KeyInKeyboard()
+    assert keyC.keyId == ' '
+    keyC.keyId = 'c'
+    assert keyC.keyId == 'c'
+    keyboard = m.Keyboard()
+    assert keyboard.a.keyId == 'a'
+    assert keyboard.b.keyId == 'b'
+    keyboard.otherKeys = [keyC]
+    assert keyboard.otherKeys[0].keyId == 'c'
+
+
 def test_inheritance(msg):
     roger = m.Rabbit("Rabbit")
     assert roger.name() + " is a " + roger.species() == "Rabbit is a parrot"

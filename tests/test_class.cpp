@@ -42,6 +42,29 @@ TEST_SUBMODULE(class_, m) {
     py::class_<NoConstructor>(m, "NoConstructor")
         .def_static("new_instance", &NoConstructor::new_instance, "Return an instance");
 
+    // fzh: test a struct has a field which is another field
+    struct KeyInKeyboard {
+      char keyId;
+      KeyInKeyboard() : keyId(' ') {}
+      KeyInKeyboard(char c) : keyId(c) {}
+    };
+    struct Keyboard {
+      KeyInKeyboard a;
+      KeyInKeyboard b;
+      std::vector<KeyInKeyboard> otherKeys;
+      Keyboard() : a('a'), b('b') {}
+    };
+    py::class_<KeyInKeyboard>(m, "KeyInKeyboard")
+        .def(py::init())
+        .def(py::init<char>())
+        .def_readwrite("keyId", &KeyInKeyboard::keyId);
+    py::class_<Keyboard>(m, "Keyboard")
+        .def(py::init())
+        .def_readwrite("a", &Keyboard::a)
+        .def_readwrite("b", &Keyboard::b)
+        .def_readwrite("otherKeys", &Keyboard::otherKeys);
+
+
     // test_inheritance
     class Pet {
     public:
