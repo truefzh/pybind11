@@ -144,6 +144,15 @@ def test_struct_field_of_struct(msg):
     keyboard = m.Keyboard()
     assert keyboard.a.keyId == 'a'
     assert keyboard.b.keyId == 'b'
+    # test: extract an attribute from the big object, and the attribute should work as an object
+    a = keyboard.a
+    assert a is not None
+    assert a.keyId == 'a'
+    b = keyboard.b
+    assert b is not None
+    assert b.keyId == 'b'
+    # questions: big picture, big goals of the org/team?
+    # extracted python attribute is by reference or by value?
     keyboard.otherKeys = [keyC]
     assert keyboard.otherKeys[0].keyId == 'c'
 
